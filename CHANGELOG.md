@@ -4,6 +4,19 @@ Todos los cambios notables de la documentación de este repositorio se registran
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [Sin publicar] - 2026-07-24
+
+### Cambiado
+
+- Reorganización de la carpeta `PROMPTs/` con nomenclatura numerada por etapa:
+  - `PROMPTs/Generar-SDD/` → `PROMPTs/01-Ejecutar-Prompt-Integrador-Documento-Intake/`, con el historial ampliado de `00` a `35` (fases, PRs, máquina de estados, investigación de NUT y replanteos) y los `INPUTs/` e `Imgs/` reubicados.
+  - `PROMPTs/02-Ejecutar-Prompt-Orquestador/`: prompt del agente orquestador de documentación.
+
+### Añadido
+
+- `PROMPTs/03-Reformular-SDD/`: prompts de reformulación del SDD.
+  - `01-Reformular-SDD-Ajuste-UX-UI/`: ajuste de UX/UI del panel de verificaciones, con `INPUTs/` (maqueta HTML y SPEC de UX).
+
 ## [Sin publicar] - 2026-07-21
 
 ### Añadido

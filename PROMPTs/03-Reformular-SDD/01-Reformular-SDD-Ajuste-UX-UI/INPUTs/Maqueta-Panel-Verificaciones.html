@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maqueta — Panel de verificaciones (Sai-Service-Core)</title>
+<style>
+  :root {
+    --surface-0: #f5f4ef;
+    --surface-1: #efeee8;
+    --surface-2: #ffffff;
+    --border: rgba(0,0,0,.10);
+    --border-strong: rgba(0,0,0,.18);
+    --text-primary: #26262a;
+    --text-secondary: #5f5e5a;
+    --radius: 8px;
+
+    --bg-success: #eaf3de;  --text-success: #3b6d11;  --fill-success: #639922;
+    --bg-warning: #faeeda;  --text-warning: #854f0b;  --fill-warning: #ba7517;
+    --bg-danger:  #fcebeb;  --text-danger:  #a32d2d;  --border-danger: #f09595;
+    --accent: #185fa5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-0: #1a1a19;
+      --surface-1: #232322;
+      --surface-2: #2c2c2a;
+      --border: rgba(255,255,255,.12);
+      --border-strong: rgba(255,255,255,.22);
+      --text-primary: #ecebe6;
+      --text-secondary: #a3a29c;
+
+      --bg-success: #27500a;  --text-success: #c0dd97;  --fill-success: #639922;
+      --bg-warning: #633806;  --text-warning: #fac775;  --fill-warning: #ba7517;
+      --bg-danger:  #791f1f;  --text-danger:  #f7c1c1;  --border-danger: #a32d2d;
+      --accent: #85b7eb;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 24px;
+    background: var(--surface-0); color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.6;
+  }
+  main { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 400; margin: 0 0 24px; }
+  p { margin: 0; }
+  .card {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 12px;
+  }
+  .card--riesgo { border-color: var(--border-danger); }
+  .card--fila { padding: 14px 24px; }
+  .row { display: flex; align-items: center; gap: 12px; }
+  .row--top { align-items: flex-start; }
+  .grow { flex: 1; min-width: 0; }
+  .titulo { font-size: 17px; font-weight: 500; }
+  .sub { font-size: 13px; color: var(--text-secondary); }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; padding: 4px 12px; border-radius: var(--radius); white-space: nowrap;
+  }
+  .chip--warning { background: var(--bg-warning); color: var(--text-warning); }
+  .chip--success { background: var(--bg-success); color: var(--text-success); }
+  .chip--danger  { background: var(--bg-danger);  color: var(--text-danger); }
+  .chip--neutral { background: var(--surface-1);  color: var(--text-secondary); font-size: 12px; padding: 3px 10px; }
+
+  .num {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 13px;
+  }
+  .num--pend { background: var(--bg-warning); color: var(--text-warning); }
+  .num--ok   { background: var(--bg-success); color: var(--text-success); }
+
+  .progreso { display: flex; gap: 4px; margin-top: 16px; }
+  .progreso span { flex: 1; height: 5px; border-radius: 3px; background: var(--border-strong); }
+  .progreso span.on { background: var(--fill-success); }
+
+  button {
+    font: inherit; font-size: 14px; cursor: pointer;
+    background: transparent; color: var(--text-primary);
+    border: 1px solid var(--border-strong); border-radius: var(--radius);
+    padding: 8px 14px; display: inline-flex; align-items: center; gap: 7px;
+  }
+  button:hover { background: var(--surface-1); }
+  button.primaria { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.peligro  { border-color: var(--border-danger); color: var(--text-danger); }
+  button.terciaria { border-color: transparent; color: var(--text-secondary); }
+  button.terciaria:hover { border-color: var(--border); }
+
+  .secuencia { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--text-secondary); }
+  .secuencia b { font-weight: 400; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 10px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0; }
+  .campo { font-size: 15px; margin-bottom: 6px; }
+  .campo em { font-style: normal; color: var(--text-secondary); }
+  ol { margin: 12px 0; padding-left: 22px; font-size: 15px; }
+  li { margin-bottom: 4px; }
+  .aviso { background: var(--bg-danger); border-radius: var(--radius); padding: 12px 14px; margin: 14px 0; }
+  .aviso p { font-size: 14px; color: var(--text-danger); }
+  .icon { width: 16px; height: 16px; flex-shrink: 0; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+</head>
+<body>
+
+<svg class="sr" aria-hidden="true"><defs>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3H4a4 4 0 0 0 2-3v-3a7 7 0 0 1 4-6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M22 12c-2.7 4.7-6 7-10 7s-7.3-2.3-10-7c2.7-4.7 6-7 10-7s7.3 2.3 10 7"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6M15 2v6M6 8h12v3a6 6 0 0 1-12 0z"/><path d="M12 17v5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 20h20z"/><path d="M12 9v5M12 17.5v.01"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5v.01M7 16.5v.01"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></symbol>
+</defs></svg>
+
+<main>
+<h1>Panel de verificaciones</h1>
+
+<!-- P-1 · Encabezado de estado del servicio -->
+<section class="card">
+  <div class="row row--top" style="gap:16px;flex-wrap:wrap">
+    <div class="grow">
+      <p class="sub" style="margin-bottom:6px">Estado del servicio</p>
+      <div class="row" style="gap:10px;margin-bottom:8px">
+        <span class="chip chip--warning"><svg class="icon"><use href="#i-bell"/></svg>Solo aviso</span>
+        <span class="sub">2 de 4 pruebas verificadas</span>
+      </div>
+      <p>El sistema todavía <strong style="font-weight:500">no apaga el host automáticamente</strong>. Faltan 2 pruebas para habilitar el apagado ante corte de energía.</p>
+    </div>
+    <button class="primaria"><svg class="icon"><use href="#i-play"/></svg>Iniciar ejercicio guiado</button>
+  </div>
+  <div class="progreso" role="img" aria-label="2 de 4 pruebas verificadas">
+    <span class="on"></span><span class="on"></span><span></span><span></span>
+  </div>
+</section>
+
+<!-- P-3 · Tira de secuencia -->
+<section style="background:var(--surface-1);border-radius:12px;padding:16px 20px;margin-bottom:20px">
+  <p class="sub" style="margin-bottom:10px">Es un solo ejercicio físico, con presencia. Cada paso registra un tramo:</p>
+  <div class="secuencia">
+    <b>Cortás la red</b><svg class="icon"><use href="#i-arrow"/></svg>
+    <b>El SAI avisa OB</b><svg class="icon"><use href="#i-arrow"/></svg>
+    <b>El host se apaga</b><svg class="icon"><use href="#i-arrow"/></svg>
+    <b>El SAI corta salida</b><svg class="icon"><use href="#i-arrow"/></svg>
+    <b>Vuelve la luz, arranca solo</b>
+  </div>
+</section>
+
+<!-- Paso 1 · Pendiente → tarjeta expandida (P-4) -->
+<article class="card">
+  <div class="row" style="margin-bottom:10px">
+    <span class="num num--pend">1</span>
+    <div class="grow">
+      <p class="titulo">Señal en batería</p>
+      <p class="sub">El SAI avisa que pasó a batería (OB)</p>
+    </div>
+    <span class="chip chip--warning">Pendiente</span>
+  </div>
+  <div class="chips">
+    <span class="chip chip--neutral"><svg class="icon"><use href="#i-server"/></svg>Actúa el SAI</span>
+    <span class="chip chip--neutral"><svg class="icon"><use href="#i-user"/></svg>Vos cortás la red</span>
+    <span class="chip chip--neutral"><svg class="icon"><use href="#i-pin"/></svg>Presencial</span>
+  </div>
+  <p class="campo"><em>Qué se prueba —</em> que al quedarse sin energía de red, el SAI avise que está funcionando con su batería. Ese aviso es lo que dispara el apagado.</p>
+  <ol>
+    <li>Cortás la energía de red que entra al SAI.</li>
+    <li>El SAI queda alimentando con su batería y lo informa.</li>
+    <li>El sistema lee ese aviso y confirma el estado «en batería» (no manda ninguna orden al equipo).</li>
+  </ol>
+  <p class="campo" style="margin-bottom:14px"><em>Esperás ver —</em> el estado del equipo cambia a «en batería».</p>
+  <button><svg class="icon"><use href="#i-eye"/></svg>Confirmar señal (solo lectura)</button>
+</article>
+
+<!-- Paso 2 · Vigente → fila colapsada (P-4) -->
+<article class="card card--fila">
+  <div class="row">
+    <span class="num num--ok"><svg class="icon"><use href="#i-check"/></svg></span>
+    <div class="grow">
+      <p class="titulo">2 · Apagado ordenado del host</p>
+      <p class="sub">1 s medidos vs. 120 s reservados · vigente hasta el 18 ene 2027 (faltan 6 meses)</p>
+    </div>
+    <button class="terciaria" aria-expanded="false">Ver procedimiento</button>
+    <button class="terciaria">Re-verificar</button>
+  </div>
+</article>
+
+<!-- Paso 3 · Pendiente + riesgo alto (P-4, P-5) -->
+<article class="card card--riesgo">
+  <div class="row" style="margin-bottom:10px">
+    <span class="num num--pend">3</span>
+    <div class="grow">
+      <p class="titulo">Corte con retorno</p>
+      <p class="sub">El SAI corta su salida y la repone</p>
+    </div>
+    <span class="chip chip--danger">Corta corriente real</span>
+  </div>
+  <div class="chips">
+    <span class="chip chip--neutral"><svg class="icon"><use href="#i-server"/></svg>Actúa el SAI</span>
+    <span class="chip chip--neutral"><svg class="icon"><use href="#i-pin"/></svg>Presencial</span>
+  </div>
+  <p class="campo"><em>Qué se prueba —</em> que el SAI pueda cortar la corriente que alimenta al host y volver a dársela por sí solo. Es el mecanismo del apagado.</p>
+  <ol>
+    <li>Se le ordena al SAI apagar la salida que alimenta al host y volver a activarla.</li>
+    <li>El SAI espera el tiempo configurado —para que el host termine de apagarse— y recién ahí corta la corriente de la salida.</li>
+    <li>Cuando regresa la energía de red, el SAI se activa tras una breve espera de estabilización y vuelve a alimentar la salida del host.</li>
+  </ol>
+  <p class="campo"><em>Esperás ver —</em> el SAI corta la corriente del host y, al volver la energía de red, la reactiva.</p>
+  <div class="aviso">
+    <p><svg class="icon" style="vertical-align:-3px;margin-right:5px"><use href="#i-alert"/></svg>No hay garantía de que el SAI reponga su salida ni de que el host vuelva a encender. Verificá antes el arranque automático en la BIOS del host.</p>
+  </div>
+  <button class="peligro"><svg class="icon"><use href="#i-plug"/></svg>Ejecutar corte con retorno</button>
+</article>
+
+<!-- Paso 4 · Vigente → fila colapsada (P-4) -->
+<article class="card card--fila">
+  <div class="row">
+    <span class="num num--ok"><svg class="icon"><use href="#i-check"/></svg></span>
+    <div class="grow">
+      <p class="titulo">4 · Arranque automático del host</p>
+      <p class="sub">Arrancó solo al restaurarse la energía · vigente hasta el 22 jul 2027 (falta 1 año)</p>
+    </div>
+    <button class="terciaria" aria-expanded="false">Ver procedimiento</button>
+    <button class="terciaria">Re-verificar</button>
+  </div>
+</article>
+
+</main>
+</body>
+</html>
