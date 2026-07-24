@@ -17,6 +17,10 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/
 - `PROMPTs/03-Reformular-SDD/`: prompts de reformulación del SDD.
   - `01-Reformular-SDD-Ajuste-UX-UI/`: ajuste de UX/UI del panel de verificaciones, con `INPUTs/` (maqueta HTML y SPEC de UX).
 
+### Corregido
+
+- `PROMPTs/02-Ejecutar-Prompt-Orquestador/`: el prompt del orquestador quedaba anidado dentro de un directorio mal nombrado (`Ejecutar-Prompt-Orquestador.md/`); ahora es un archivo `Ejecutar-Prompt-Orquestador.md` directo.
+
 ## [Sin publicar] - 2026-07-21
 
 ### Añadido
