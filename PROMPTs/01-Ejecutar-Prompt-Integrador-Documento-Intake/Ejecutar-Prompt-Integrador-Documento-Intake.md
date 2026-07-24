@@ -39,31 +39,39 @@
 
   Los sprint relativos a la codificación deben asegurar puntos de validación al agente humano verificando estructuras, validaciones con entregables tangibles. Las primeras etapas deben consistir en:
 
-6.1. **Etapa 1**
+  6.1. **Etapa 1**
 
-  6.1.a. Crear el scaffolding de la solución y script bat para las tareas del run/build local.
-  6.1.b. Las solución debe compilar y correr mediante los script but sitados.
-  6.1.c. Luego, el orquestador debe solicitar validar visualmente la estructura de la solución por el agente humano.
+    6.1.a. Crear el scaffolding de la solución y script bat para las tareas del run/build local.
+    
+    6.1.b. Las solución debe compilar y correr mediante los script but sitados.
+    
+    6.1.c. Luego, el orquestador debe solicitar validar visualmente la estructura de la solución por el agente humano.
 
-6.2. **Etapa 2**
+  6.2. **Etapa 2**
 
-  6.2.a. Crear el front, menú lateral, barra superior. 
-  6.2.b. El servicio debe compilar correctamente y debe ser lanzado.
-  6.2.c. Se orquestador debe solicitar validar visualmente en el navegador el panel de cotrol web para que se cumple con el diseño definido en la maqueta dada en la etapa de espcificación UX-UI.
+    6.2.a. Crear el front, menú lateral, barra superior. 
 
-6.3. **Etapa 3**
+    6.2.b. El servicio debe compilar correctamente y debe ser lanzado.
+    
+    6.2.c. Se orquestador debe solicitar validar visualmente en el navegador el panel de cotrol web para que se 
+    cumple con el diseño definido en la maqueta dada en la etapa de espcificación UX-UI.
 
-  6.3.a. Integrar sqlite, entidades necesarias para la autentificación y autorización.
-  6.3.b. Idem Crear la primera intefaz de usuario que solicita usuario y contraseña para dar de alta el administrador. Luego redirecciona a la página principal
-  6.3.c. Idem al punto 6.2.c. de la etapa 2.
+  6.3. **Etapa 3**
 
-6.4. **Etapa 4**
+    6.3.a. Integrar sqlite, entidades necesarias para la autentificación y autorización.
 
-  6.4.a. Integrar las interfaces para login, y para cambio de contraseña, las acciones desde la barra superior del admin como cerrar sesión, y cambio de contraseña.
-  6.4.b. Idem al punto 6.2.c. de la etapa 2.
+    6.3.b. Idem Crear la primera intefaz de usuario que solicita usuario y contraseña para dar de alta el administrador. Luego redirecciona a la página principal
+
+    6.3.c. Idem al punto 6.2.c. de la etapa 2.
+
+  6.4. **Etapa 4**
+
+    6.4.a. Integrar las interfaces para login, y para cambio de contraseña, las acciones desde la barra superior del admin como cerrar sesión, y cambio de contraseña.
+
+    6.4.b. Idem al punto 6.2.c. de la etapa 2.
 
 
-6.4. Las Siguientes etapas se deben estructurar según todas los flujos de usuarios previstos:
+  6.4. Las Siguientes etapas se deben estructurar según todas los flujos de usuarios previstos:
 
 
     UF1["UF-1 · Alta del parque<br/>y puesta en marcha"]
@@ -112,8 +120,8 @@
 
 # Restricciones
 
-- No realizar commit, push ni pull request.
-- No inventar información.
-- Toda afirmación deberá estar respaldada por evidencias verificables.
-- No introducir modificaciones en  `Framework SDD` 
+  - No realizar commit, push ni pull request.
+  - No inventar información.
+  - Toda afirmación deberá estar respaldada por evidencias verificables.
+  - No introducir modificaciones en  `Framework SDD` 
 
