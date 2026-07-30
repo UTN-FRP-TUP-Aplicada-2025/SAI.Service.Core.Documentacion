@@ -1,7 +1,7 @@
 Auditoría de Fase G (11-Examples) completada. Informe emitido.
 
 Devolución
-1) Veredicto (una línea): APROBADO — 0 hallazgos bloqueantes (0 P0, 0 P1); los dos samples y el README cumplen los 14 criterios del §6 de 11-Rules-Examples.
+1) Veredicto (una línea): APROBADO — 0 hallazgos bloqueantes (0 P0, 0 P1); los dos samples y el README cumplen los 14 criterios del §6 de Rules-Examples.
 
 2) Conteo por nivel: P0: 0 · P1: 0 · P2: 2 · P3: 3.
 
