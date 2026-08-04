@@ -4,6 +4,24 @@ Todos los cambios notables de la documentación de este repositorio se registran
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
 
+## [Sin publicar] - 2026-08-04
+
+### Añadido
+
+- `ia-db/`: base de conocimiento indexada de `SAI.Service.Core`, pensada para que un agente cargue solo el índice que necesita en vez de recorrer el repositorio completo.
+  - `ia-db/README.md`: punto de entrada único, con la tabla de navegación «necesito saber… → leo este índice» y el resumen ejecutivo del sistema.
+  - `ia-db/indexes/`: doce índices temáticos, de `00_MASTER-INDEX` a `11_Estado-Y-Pendientes`, que cubren arquitectura, dominio y reglas, modelo de datos, aplicación y casos de uso, interfaces del panel y la API, infraestructura y adaptador del SAI, calidad y pruebas, devops y operación, documentación SDD, glosario y estado del proyecto.
+  - Indexado hecho sobre la rama `feature/politica-retardo-retorno` del repositorio de código (último commit `087ad71`).
+- `PROMPTs/01-Crear-Indexado/`: los dos prompts que gobiernan esa base — `Crear-Indexado.md` la genera desde cero y `Actualizar-Indexado.md` la mantiene al día cuando el código o el SDD cambian.
+
+### Cambiado
+
+- Renumeración de `PROMPTs/` para que el indexado ocupe la posición `01`, que es la que se ejecuta primero:
+  - `01-Ejecutar-Prompt-Integrador-Documento-Intake/` → `02-Ejecutar-Prompt-Integrador-Documento-Intake/`
+  - `02-Ejecutar-Prompt-Orquestador/` → `03-Ejecutar-Prompt-Orquestador/`
+  - `03-Reformular-SDD/` → `04-Reformular-SDD/`
+- Las rutas de invocación y las referencias a `INPUTs/` dentro de los prompts movidos se actualizaron al número nuevo, para que las instrucciones sigan resolviendo.
+
 ## [Sin publicar] - 2026-07-29
 
 ### Añadido
