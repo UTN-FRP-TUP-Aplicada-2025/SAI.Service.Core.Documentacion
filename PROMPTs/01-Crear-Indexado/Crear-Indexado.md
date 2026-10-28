@@ -1,1 +1,0 @@
-Lee y ejecuta `/IA/IA.Prompts/Tool-Prompts/Indexado-Documentado/Iniciar-Indexado.md` de `/DEV/SAI.Service.Core` y deja la indexación en `/DEV/SAI.Service.Core.Documentacion/ia-db`
